@@ -1,18 +1,21 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/mysite/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
-	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+	<c:import url="/WEB-INF/views/include/header.jsp"/>
 		<div id="content">
 			<div id="user">
 
-				<form id="join-form" name="joinForm" method="post" action="/mysite/user">
+				<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user">
 					<input type="hidden" name="a" value="join">
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="">
@@ -41,16 +44,9 @@
 				</form>
 			</div>
 		</div>
-		<div id="navigation">
-			<ul>
-				<li><a href="">안대혁</a></li>
-				<li><a href="">방명록</a></li>
-				<li><a href="">게시판</a></li>
-			</ul>
-		</div>
-		<div id="footer">
-			<p>(c)opyright 2015</p>
-		</div>
+	<c:import url="/WEB-INF/views/include/Navigation.jsp"/>
+	<c:import url="/WEB-INF/views/include/footer.jsp"/>
+
 	</div>
 </body>
 </html>
