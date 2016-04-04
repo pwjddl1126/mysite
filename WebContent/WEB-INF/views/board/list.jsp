@@ -28,33 +28,32 @@
 						<th>작성일</th>
 						<th>&nbsp;</th>
 					</tr>				
-					<tr>
-						<td>3</td>
-						<td><a href="">세 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-10-11 12:04:20</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="">두 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-10-02 12:04:12</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="">첫 번째 글입니다.</a></td>
-						<td>안대혁</td>
-						<td>3</td>
-						<td>2015-09-25 07:24:32</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
+					<ul>
+					<c:set var="br" value="<br>" scope="page"/>
+					<c:set var="count" value="${fn:length(list) }" />
+					<c:forEach items="${list }"  var="vo" varStatus = "status" >
+						
+								<tr>
+									<td>[${count-status.index }]</td>
+									<td><a href="${pageContext.request.contextPath}/board?a=bView&no=${vo.no }"/> ${vo.title }</td>
+									<td>${vo.name }</td>
+									<td>${vo.viewcount }</td>
+									<td>${vo.reg_date }</td>
+									
+									<c:if test = "${sessionScope.authUser.no == vo.user_no }">
+										<td><a href="${pageContext.request.contextPath}/board?a=bDelete&no=${vo.no }" class="del">삭제</a></td>
+									</c:if>
+								</tr>
+
+
+						
+					</c:forEach>					
+				</ul>
 				</table>
 				<div class="bottom">
-					<a href="" id="new-book">글쓰기</a>
+					<c:if test = "${not empty authUser }">
+					<a href="${pageContext.request.contextPath}/board?a=bWrite" id="new-book">글쓰기</a>
+					</c:if>
 				</div>				
 			</div>
 		</div>

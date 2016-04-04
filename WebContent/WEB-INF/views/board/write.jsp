@@ -7,14 +7,17 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<c:import url="/WEB-INF/views/include/header.jsp"/>
+	<div id="container">
+		<c:import url="/WEB-INF/views/include/header.jsp" />
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.request.contextPath}/board">
-					<input type = "hidden" name = "a" value="write">
+					<input type = "hidden" name = "a" value="bInsert">
+
+
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -37,8 +40,8 @@
 				</form>				
 			</div>
 		</div>
-		<c:import url="/WEB-INF/views/include/Navigation.jsp"/>
-		<c:import url"/WEB-INF/views/include/footer.jsp"/>
+		<c:import url="/WEB-INF/views/include/Navigation.jsp" />
+		<c:import url="/WEB-INF/views/include/footer.jsp" />
 	</div>
 </body>
 </html>
