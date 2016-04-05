@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 	<c:import url="/WEB-INF/views/include/header.jsp"/>
-
+		
 		<div id="content">
 			<div id="board" class="board-form">
 				<input type='hidden' name="no" value="${param.no }">
@@ -34,10 +34,12 @@
 					</tr>
 				</table>
 				<div class="bottom">
+					<a href="${pageContext.request.contextPath}/board?a=reply&no=${vo.user_no}">답글</a>
 					<a href="${pageContext.request.contextPath}/board">글목록</a>
 
+
 					<c:if test = "${sessionScope.authUser.no == vo.user_no }">
-						<a href="${pageContext.request.contextPath}/board?a=bUpdate">글수정</a>
+						<a href="${pageContext.request.contextPath}/board?a=bModify&no=${vo.no}">글수정</a>
 					</c:if>
 				</div>
 			</div>

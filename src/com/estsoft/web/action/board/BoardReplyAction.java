@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.estsoft.web.action.Action;
 
-public class BoardUpadateAction implements Action {
+public class BoardReplyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response)

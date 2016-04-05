@@ -16,21 +16,23 @@ public class BoardViewAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String no = request.getParameter( "no" );
+		
 		if( no == null  ) {
 			WebUtil.redirect( request, response, request.getContextPath() + "/board" );
 			return;
 		}
 		
-		Long boardNo = Long.parseLong( no );
+		Long board_no = Long.parseLong( no );
 		
 		// DAO 생성
-		BoardDao boardDao = new BoardDao( new MySQLWebDBConnection() ) ;
+		BoardDao dao = new BoardDao( new MySQLWebDBConnection() ) ;
 		
-//		boardDao.updateHits( boardNo );
-		BoardVo boardVo = boardDao.get(  boardNo );
+		dao.raiseCount(board_no);
+		BoardVo vo = dao.get(  board_no );
 		
-		request.setAttribute( "vo", boardVo );
+		request.setAttribute( "vo", vo );
 		WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp" );
 	}
 

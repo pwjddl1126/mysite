@@ -15,7 +15,8 @@
 
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
+				<form id="search_form" action="${pageContext.request.contextPath }/board" method="post">
+					<input type="hidden" name="a" value="bList">
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 				</form>
@@ -50,6 +51,20 @@
 					</c:forEach>					
 				</ul>
 				</table>
+				
+
+				<div class="pager">
+					<ul>
+						<li><a href="">◀</a></li>
+						<li><a href="">1</a></li>
+						<li class="selected">2</li>
+						<li><a href="">3</a></li>
+						<li><a href="">4</a></li>
+						<li><a href="">5</a></li>
+						<li><a href="">▶</a></li>
+					</ul>
+				</div>
+				
 				<div class="bottom">
 					<c:if test = "${not empty authUser }">
 					<a href="${pageContext.request.contextPath}/board?a=bWrite" id="new-book">글쓰기</a>

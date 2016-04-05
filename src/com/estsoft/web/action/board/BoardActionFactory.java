@@ -14,15 +14,19 @@ public class BoardActionFactory extends ActionFactory {
 		Action action = null;
 		if ("bInsert".equals(actionName)) {
 			action = new BoardInsertAction();
-		} else if ("bDelete".equals(actionName)) {
-			action = new BoardDeleteAction();
-		} else if ("bUpdate".equals(actionName)) {
-			action = new BoardUpadateAction();
-		} else if ("bView".equals(actionName)) {
-			action = new BoardViewAction();
 		} else if ("bWrite".equals(actionName)) {
 			action = new BoardInsertFormAction();
-		} else {
+		} else if ("bUpdate".equals(actionName)) {
+			action = new BoardUpdateAction();
+		} else if ("bModify".equals(actionName)) {
+			action = new BoardUpdateFormAction();
+		} else if ("bView".equals(actionName)) {
+			action = new BoardViewAction();
+		}else if ("bDelete".equals(actionName)) {
+			action = new BoardDeleteAction();
+		} else if ("reply".equals(actionName)) {
+			action = new BoardReplyAction();
+		}else {
 			action = new BoardListAction();
 		}
 
