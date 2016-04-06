@@ -22,11 +22,11 @@ public class BoardActionFactory extends ActionFactory {
 			action = new BoardUpdateFormAction();
 		} else if ("bView".equals(actionName)) {
 			action = new BoardViewAction();
-		}else if ("bDelete".equals(actionName)) {
+		} else if ("bDelete".equals(actionName)) {
 			action = new BoardDeleteAction();
-		} else if ("reply".equals(actionName)) {
-			action = new BoardReplyAction();
-		}else {
+		} else if ("bReply".equals(actionName)) {
+			action = new BoardReplyFormAction();
+		} else {
 			action = new BoardListAction();
 		}
 

@@ -34,7 +34,7 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath}/board?a=reply&no=${vo.user_no}">답글</a>
+					<a href="${pageContext.request.contextPath}/board?a=bReply&no=${vo.user_no}">답글</a>
 					<a href="${pageContext.request.contextPath}/board">글목록</a>
 
 

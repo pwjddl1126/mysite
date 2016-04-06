@@ -76,11 +76,23 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		try {
 			conn = dbConnection.getConnection();
-			String sql = "INSERT INTO board VALUES(null, ?, ?,now(), 0, (select ifnull(max(group_no),0)+1 from board as b),1,0,?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setString(2, vo.getContent());
-			pstmt.setLong(3, vo.getUser_no());
+			
+			if( Long.toString(vo.getGroup_no()) == ""){
+				String sql = "INSERT INTO board VALUES(null, ?, ?,now(), 0, (select ifnull(max(group_no),0)+1 from board as b),1,0,?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, vo.getTitle());
+				pstmt.setString(2, vo.getContent());
+				pstmt.setLong(3, vo.getUser_no());
+			}else{
+				String sql = "INSERT INTO board VALUES (null,?,?,now(),0,?,?,?,?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString( 1, vo.getTitle());
+				pstmt.setString( 2, vo.getContent() );
+				pstmt.setLong( 3, vo.getGroup_no() );
+				pstmt.setLong( 4, vo.getOrder_no() );
+				pstmt.setLong( 5, vo.getDepth() );
+				pstmt.setLong( 6, vo.getUser_no() );
+			}
 			pstmt.executeUpdate();
 		} catch (SQLException ex) {
 			System.out.println("error:" + ex);
@@ -293,6 +305,35 @@ public class BoardDao {
 			pstmt.executeUpdate();
 		} catch (SQLException ex) {
 			System.out.println("error:" + ex);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	public void UpdateGroupOrder(BoardVo vo){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try{
+			conn = dbConnection.getConnection();
+			String sql = "UPDATE board SET order_no = order_no+1 WHERE"
+					+ " group_no = ? AND order_no >= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1,vo.getGroup_no());
+			pstmt.setLong(2, vo.getOrder_no());
+			
+			pstmt.executeUpdate();
+		}catch(SQLException ex){
+			System.out.println("error:"+ex);
 		} finally {
 			try {
 				if (pstmt != null) {

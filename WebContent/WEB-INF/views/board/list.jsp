@@ -36,7 +36,21 @@
 						
 								<tr>
 									<td>[${count-status.index }]</td>
-									<td><a href="${pageContext.request.contextPath}/board?a=bView&no=${vo.no }"/> ${vo.title }</td>
+									
+									<c:choose>
+										<c:when test="${vo.depth > 0 }">
+										<td style="text-align:left; padding-left:${20*vo.depth }px">
+										<img src="${pageContext.request.contextPath}/assets/images/reply.png">
+										<a href="${pageContext.request.contextPath}/board?a=bView&no=${vo.no }">${vo.title }</a>
+										</td>
+										</c:when>
+									<c:otherwise>
+										<td style="text-align:left">
+											<a href="${pageContext.request.contextPath}/board?a=bView&no=${vo.no }">${vo.title }</a>
+										</td>
+									</c:otherwise>	
+									</c:choose>
+									
 									<td>${vo.name }</td>
 									<td>${vo.viewcount }</td>
 									<td>${vo.reg_date }</td>
