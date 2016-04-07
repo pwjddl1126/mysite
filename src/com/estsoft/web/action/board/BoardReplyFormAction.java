@@ -20,13 +20,9 @@ public class BoardReplyFormAction implements Action {
 		
 
 		Long no = Long.parseLong( request.getParameter( "no" ));
-		Long group_no = Long.parseLong(request.getParameter("group_no"));
-		Long order_no = Long.parseLong(request.getParameter("order_no"));
-		Long depth = Long.parseLong(request.getParameter("depth"));
 
 		BoardDao dao = new BoardDao( new MySQLWebDBConnection() );
 		BoardVo vo = dao.get(no);
-		
 		
 		request.setAttribute( "vo", vo );
 		

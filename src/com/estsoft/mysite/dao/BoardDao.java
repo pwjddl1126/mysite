@@ -169,68 +169,68 @@ public class BoardDao {
 	// list
 	public List<BoardVo> getList(String kwd) {
 		List<BoardVo> list = new ArrayList<BoardVo>();
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			conn = dbConnection.getConnection();
 
-			String sql = "SELECT b.no, b.title, b.content, DATE_FORMAT( b.reg_date, '%Y-%m-%d %p %h:%i:%s' ), b.viewcount,"
-					+ " b.group_no, b.order_no, b.depth, b.user_no, a.name from user a, board b WHERE a.no = b.user_no"
-					+ " AND (b.title LIKE ? OR b.content LIKE ?) ORDER BY b.reg_date desc";
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, "%"+kwd+"%");
-			pstmt.setString(2, "%"+kwd+"%");
+				String sql =
+						"      SELECT  a.no, a.title, b.name, b.no, a.viewcount, DATE_FORMAT(reg_date, '%Y-%m-%d %p %h:%i:%s'), depth" +
+						"       FROM  board a," +
+						"                 user b" +
+						"      WHERE a.user_no = b.no" +
+						"         AND (a.title LIKE ? OR a.content LIKE ?)" +
+						" ORDER BY group_no DESC, order_no ASC,reg_date DESC" ;
 
-			rs = pstmt.executeQuery();
+				
+				pstmt = conn.prepareStatement( sql );
+				pstmt.setString( 1, "%" + kwd + "%" );
+				pstmt.setString( 2, "%" + kwd + "%" );
+
 			
-			while (rs.next()) {
-				Long no = rs.getLong(1);
-				String title = rs.getString(2);
-				String content = rs.getString(3);
-				String reg_date = rs.getString(4);
-				Long viewcount = rs.getLong(5);
-				Long group_no = rs.getLong(6);
-				Long order_no = rs.getLong(7);
-				Long depth = rs.getLong(8);
-				Long user_no = rs.getLong(9);
-				String name = rs.getString(10);
+			rs = pstmt.executeQuery();
+			while( rs.next() ) {
+				Long no = rs.getLong( 1 );
+				String title = rs.getString( 2 );
+				String name = rs.getString( 3 );
+				Long user_no = rs.getLong( 4 );
+				Long viewcount = rs.getLong( 5 );
+				String reg_date = rs.getString( 6 );
+				Long depth = rs.getLong( 7 );
 
 				BoardVo vo = new BoardVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setContent(content);
-				vo.setReg_date(reg_date);
-				vo.setViewcount(viewcount);
-				vo.setGroup_no(group_no);
-				vo.setOrder_no(order_no);
-				vo.setDepth(depth);
-				vo.setUser_no(user_no);
-				vo.setName(name);
-
-				list.add(vo);
+				vo.setNo( no );
+				vo.setTitle( title );
+				vo.setName( name );
+				vo.setUser_no( user_no );
+				vo.setViewcount( viewcount );
+				vo.setReg_date( reg_date );
+				vo.setDepth( depth );
+				
+				list.add( vo );
 			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+			
+			return list;
+		} catch( SQLException ex ) {
+			System.out.println( "error: " + ex);
+			return list;
 		} finally {
-			try {
-				if (rs != null) {
+			try{
+				if( rs != null ) {
 					rs.close();
 				}
-				if (pstmt != null) {
+				if( pstmt != null ) {
 					pstmt.close();
 				}
-				if (conn != null) {
+				if( conn != null ) {
 					conn.close();
 				}
-			} catch (SQLException ex) {
+			}catch( SQLException ex ) {
 				ex.printStackTrace();
 			}
 		}
-
-		return list;
 
 	}
 	
@@ -242,34 +242,32 @@ public class BoardDao {
 		try {
 			conn = dbConnection.getConnection();
 			stmt = conn.createStatement();
-			String sql = "SELECT b.no, b.title, b.content, DATE_FORMAT( b.reg_date, '%Y-%m-%d %p %h:%i:%s' ), b.viewcount,"
-					+ " b.group_no, b.order_no, b.depth, b.user_no, a.name from user a, board b WHERE a.no = b.user_no ORDER BY reg_date desc";
+			String sql =
+					"     SELECT  a.no, a.title, b.name, b.no, a.viewcount, DATE_FORMAT(reg_date, '%Y-%m-%d %p %h:%i:%s'), depth" +
+					"      FROM  board a," +
+					"                user b" +
+					"      WHERE a.user_no = b.no" +
+					" ORDER BY group_no DESC, order_no ASC,reg_date DESC" ;
 			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				Long no = rs.getLong(1);
-				String title = rs.getString(2);
-				String content = rs.getString(3);
-				String reg_date = rs.getString(4);
-				Long viewcount = rs.getLong(5);
-				Long group_no = rs.getLong(6);
-				Long order_no = rs.getLong(7);
-				Long depth = rs.getLong(8);
-				Long user_no = rs.getLong(9);
-				String name = rs.getString(10);
+			while( rs.next() ) {
+				Long no = rs.getLong( 1 );
+				String title = rs.getString( 2 );
+				String name = rs.getString( 3 );
+				Long user_no = rs.getLong( 4 );
+				Long viewcount = rs.getLong( 5 );
+				String reg_date = rs.getString( 6 );
+				Long depth = rs.getLong( 7 );
 
 				BoardVo vo = new BoardVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setContent(content);
-				vo.setReg_date(reg_date);
-				vo.setViewcount(viewcount);
-				vo.setGroup_no(group_no);
-				vo.setOrder_no(order_no);
-				vo.setDepth(depth);
-				vo.setUser_no(user_no);
-				vo.setName(name);
-
-				list.add(vo);
+				vo.setNo( no );
+				vo.setTitle( title );
+				vo.setName( name );
+				vo.setUser_no( user_no );
+				vo.setViewcount( viewcount );
+				vo.setReg_date( reg_date );
+				vo.setDepth( depth );
+				
+				list.add( vo );
 			}
 		} catch (SQLException ex) {
 			System.out.println("error: " + ex);
